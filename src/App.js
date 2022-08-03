@@ -1,23 +1,29 @@
-import logo from './logo.svg';
+import React, {useState} from 'react';
 import './App.css';
+import Userdata from './components/Userdata.js';
+import UsersShow from './components/UsersShow';
 
+const DUMMY_DATA= [
+  {
+    id :100,
+    username: 'pranjal',
+    age:20
+  }
+]
 function App() {
+
+  const [users,updateUsers] = useState(DUMMY_DATA);
+  
+  const addUser = (user) =>{
+    updateUsers((prevUsers)=>{
+      return [user,...prevUsers];
+    })
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Userdata userHandler={addUser} />
+      <UsersShow allUsers= {users}/>
     </div>
   );
 }
